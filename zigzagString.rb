@@ -26,13 +26,6 @@ def convert(s, num_rows)
     res[i][j]=s[si]
     i, j=location.call
   end
-  result=String.new
-  res.each do |line|
-    if line!=nil
-      line.each do |ch|
-        result+=ch if ch!=nil
-      end
-    end
-  end
-  result
+res.flatten.compact.join
 end
+p convert("PAYPALISHIRING", 3)
