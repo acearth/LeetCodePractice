@@ -53,11 +53,13 @@ def setDanger(base, size, i, j)
   end
 end
 
-#p solve_n_queens(4)
-#p solve_n_queens(6)
-#p solve_n_queens(7)
-#p solve_n_queens(8)
-#p solve_n_queens(9)
+p solve_n_queens(4)
+p solve_n_queens(5)
+p solve_n_queens(6)
+p solve_n_queens(7)
+p solve_n_queens(8)
+p solve_n_queens(9)
 p solve_n_queens(10)
-#p solve_n_queens(11)
+p solve_n_queens(11)
+p solve_n_queens(12)
 
