@@ -1,17 +1,16 @@
 def count_digit_one(n)
-  checker=10
+  checker=1
   count=0
-  loop do
-    q=n/checker
-    r=n%checker
-    count+=q*(checker/10)
-    if r>=checker/5
-      count+=checker/10
-    elsif r>=checker/10
-      count+=r-checker/10+1
+  while checker<=n
+    q=n/(checker*10)
+    r=n%(checker*10)
+    count+=q*checker
+    if r>=checker*2
+      count+=checker
+    elsif r>=checker
+      count+=r-checker+1
     end
     checker*=10
-    break if checker>n*10
   end
   count
 end
