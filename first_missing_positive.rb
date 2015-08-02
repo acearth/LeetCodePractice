@@ -1,18 +1,15 @@
 def first_missing_positive(nums)
-  oldBase=0
-  base=0
-  rn=nums.reverse
+  oldBase, base,i=0,0,0  #initialize
+  arr=[nums,nums.reverse]
   loop do
-    nums.each { |e| base=e if e==base+1 }
+    arr[i].each { |e| base=e if e==base+1 }
     break if base==oldBase
-    rn.each { |e| base=e if e==base+1 }
-    break if base==oldBase
-    oldBase=base
+    oldBase,i=base,1-i
   end
-  return base+1
+  base+1
 end
 
-a=[1, 2, 0]
+a=[1,2, 0]
 p first_missing_positive(a)==3
 a=[3, 4, -1, 1]
 p first_missing_positive(a)==2
