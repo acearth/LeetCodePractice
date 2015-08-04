@@ -3,10 +3,9 @@ def first_missing_positive(nums)
   arr=[nums,nums.reverse]
   loop do
     arr[i].each { |e| base=e if e==base+1 }
-    break if base==oldBase
+    return base+1 if base==oldBase
     oldBase,i=base,1-i
   end
-  base+1
 end
 
 a=[1,2, 0]
