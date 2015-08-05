@@ -13,4 +13,3 @@ a=[3,2,1,0,4]
 p can_jump(a)==false
 a=[0,2,3]
 p can_jump(a)==false
-
