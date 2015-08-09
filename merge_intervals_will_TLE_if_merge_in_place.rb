@@ -6,6 +6,8 @@ class Interval
   end
 end
 
+##WARNING: the first edition of this solution is TLE, see in first passed(but trick) solution. 
+#          In that solution, I deleted merged interval in proto-array and not allocate result array.
 # @param {Interval[]} intervals
 # @return {Interval[]}
 def merge(intervals)
