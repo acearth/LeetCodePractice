@@ -1,7 +1,10 @@
+#  1. If a+b =target, we call b is partner of a.
+#  2. We allocate a hash table, hash[k] records the partner index of k.
+#  3. Let's visit the array, if hash[ei] exists, means ei and the partner of ei both exists in array. So we just return it.
+#  4. Any more?  Because there exists and only exists one result, so we needn't to do  anything out of loop body.
+#  Arthur:Arthur(Xq.AN)
+
 def two_sum(nums,target)
   hash=Hash.new
-  nums.each_with_index{|n,i| hash[target-n]=[n,i+1]}
-  nums.each_with_index{|n,i| return [i+1,hash[n][1]] if hash[n]!=nil&&i+1!=hash[n][1] }
+  nums.each_with_index {|n,i| return [hash[n],i+1] if hash[n]!=nil; hash[target-n]=i+1 }
 end
-a=[1,2,7,11,15]
-p two_sum(a,9)
