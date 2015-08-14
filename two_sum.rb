@@ -5,6 +5,7 @@
 #  Arthur:Arthur(Xq.AN)
 
 def two_sum(nums,target)
+  # test pull request
   hash=Hash.new
   nums.each_with_index {|n,i| return [hash[n],i+1] if hash[n]!=nil; hash[target-n]=i+1 }
 end
