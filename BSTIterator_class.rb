@@ -2,10 +2,9 @@ require './base/TreeNode'
 class BSTIterator
   def initialize(root)
     @stack=Array.new
-    p=root
-    while p!=nil
-      @stack.push p
-      p=p.left
+    while root!=nil
+      @stack.push root
+      root=root.left
     end
   end
 
@@ -21,7 +20,6 @@ class BSTIterator
       p=p.left
     end
     nextNode.val
-    
   end
 end
 t1=TreeNode.new(1)
