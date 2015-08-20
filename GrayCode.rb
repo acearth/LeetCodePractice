@@ -3,10 +3,7 @@ def gray_code(n)
   return [0] if n<1
   return [0,1] if n==1
   result=Array.new
-  baseLine=String.new
-  n.times do
-    baseLine+='0'
-  end
+  baseLine='0'*n
   terminLine='1'+baseLine[1..n]
   result.push Integer("0b"+baseLine)
   while baseLine!=terminLine
@@ -17,15 +14,13 @@ def gray_code(n)
     end
     result.push Integer("0b"+baseLine)
   end
-  return result
+  result
 end
 
 def sigma(line)
   count=0
-  line.length.times do |i|
-    count+=1 if line[i]=='1'
-  end
-  return count%2==0
+  line.length.times {|i| count+=1 if line[i]=='1'}
+  count%2==0
 end
 
 def changeBit(line, index)
@@ -34,7 +29,7 @@ def changeBit(line, index)
   else
     line[index]='1'
   end
-  return line
+  line
 end
 
 def findPosition(line)
@@ -43,5 +38,5 @@ def findPosition(line)
     cur-=1
     break if cur==0
   end
-  return cur-1
+  cur-1
 end
