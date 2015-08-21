@@ -1,3 +1,7 @@
+# analyze T(n)
+#  If (may) have cut,   this program will search left and right part two. But one part without cut will only check once.
+#  The part may have cut will check both sides, but the cutting point is only one. So, the time complexity is also o(log(n))
+#  Is my analysis right? 
 def search(nums, target)
   return nums.include?(target) if nums.size<4
   m=(nums.size-1)/2

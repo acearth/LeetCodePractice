@@ -1,4 +1,30 @@
+def search(cur,visited,count,n)
+  (count[0]+=1; return) if cur==n
+  n.times do |i|
+    if visited['column'][i]==false &&visited['mainDiag'][cur+i]==false && visited['cntDiag'][cur-i+n]==false
+      visited['column'][i]=visited['mainDiag'][cur+i]=visited['cntDiag'][cur-i+n]=true
+      search(cur+1,visited,count,n)
+      visited['column'][i]=visited['mainDiag'][cur+i]=visited['cntDiag'][cur-i+n]=false
+    end
+  end
+end
+
 def total_n_queens(n)
+  visited=Hash.new
+  visited['column']=[false]*n
+  visited['mainDiag']=[false]*n*2
+  visited['cntDiag']=[false]*n*2
+  count=[0]
+  search(0,visited,count,n)
+  count[0]
+end
+
+
+##Warning:: The solution below is very slow.  Recommend to refer above program for you. 
+## But it's also helpful for beginners, due to this way show a directly solution for this problem
+
+## proto solution
+def total_n_queens_proto(n)
   base=[]
   n.times do
     base.push Array.new(n, 0)

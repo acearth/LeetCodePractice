@@ -1,3 +1,5 @@
+import base.TreeLinkNode;
+
 import java.util.ArrayList;
 
 public class NextRightPointerOfTree {
