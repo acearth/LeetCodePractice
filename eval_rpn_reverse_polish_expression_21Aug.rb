@@ -1,7 +1,7 @@
 def eval_rpn(tokens)
   result=Array.new
   tokens.each do |token|
-    var = (/^[+|\-|\*|\/]$/ =~ token) ? operate(token, result.pop, result.pop) : token.to_i
+    var = (/^[+\-\*\/]$/ =~ token) ? operate(token, result.pop, result.pop) : token.to_i
     result<<var
   end
   result[0]
