@@ -1,21 +1,10 @@
 def is_valid_bst(root)
-  arr=Array.new
-  arr=inOrder root,arr
-  return true if arr==nil||arr.size<2
-  return false if arr.class=FalseClass
-  for i in 0..arr.size-2
-    return false if arr[i]>=arr[i+1]
-  end
-  return true
+  return true if root==nil
+  is_valid(root.left, (-1*2**32..root.val-1)) && is_valid(root.right,(root.val+1..2**32))
 end
 
-def inOrder(tree,arr)
-  return if tree==nil||tree.val!=nil
-  arr.push inOrder tree.left,arr
-  if arr.size>0
-    return false if tree.val<=arr.last
-  end
-  arr.push tree.val
-  arr.push inOrder tree.right,arr
-  return arr.flatten!
+def is_valid(tree, interval)
+  return true if tree==nil
+  return false if not interval.include? tree.val
+  is_valid(tree.left,(interval.begin..tree.val-1)) && is_valid(tree.right, (tree.val+1..interval.end))
 end
