@@ -1,17 +1,15 @@
-# two way to implements
-# 1. the way of merge, t(n)=o(k)
-# 2. divide and conquer, t(n)=o(logk)
-# Redo those again!
-def findKth(nums1,nums2,k)
+def find_median_sorted_arrays(a,b)
+  len=a.size+b.size
+  return find_kth(a,b,len/2+1) if len.odd? 
+  (find_kth(a,b,len/2)+find_kth(a,b,len/2+1))*0.5
 end
-    
-def find_median_sorted_arrays(nums1,nums2)
-  return findKth(nums1,nums2,(nums1.size+nums2.size+1)/2) if (nums1.size+nums2.size).odd?
-  (findKth(nums1,nums2,(nums1.size+nums2.size)/2)+(findKth(nums1,nums2,(nums1.size+nums2.size)/2+1)))*0.5
+## k>0
+def find_kth(a,b,k)   
+  return find_kth(b,a,k) if a.size<b.size  #ensure a.size >= b.size
+  return a[k-1] if b.size==0
+  return a[0]>b[0] ? b[0] : a[0] if k==1
+  lenb=[b.size,k/2].min
+  lena=k-lenb
+  return find_kth(a[lena..-1],b,k-lena) if a[lena-1]<b[lenb-1]
+  find_kth(a,b[lenb..-1],k-lenb)
 end
-a=[]
-b=[2,3]
-p find_median_sorted_arrays(a,b)
-a=[1,2,3]
-b=[2,3,4,5]
-p find_median_sorted_arrays(a,b)
