@@ -1,19 +1,19 @@
 def search(cur,visited,count,n)
   (count[0]+=1; return) if cur==n
   n.times do |i|
-    if visited['column'][i]==false &&visited['mainDiag'][cur+i]==false && visited['cntDiag'][cur-i+n]==false
-      visited['column'][i]=visited['mainDiag'][cur+i]=visited['cntDiag'][cur-i+n]=true
+    if !visited[:column][i] &&!visited[:mainDiag][cur+i] && !visited[:cntDiag][cur-i+n]
+      visited[:column][i]=visited[:mainDiag][cur+i]=visited[:cntDiag][cur-i+n]=true
       search(cur+1,visited,count,n)
-      visited['column'][i]=visited['mainDiag'][cur+i]=visited['cntDiag'][cur-i+n]=false
+      visited[:column][i]=visited[:mainDiag][cur+i]=visited[:cntDiag][cur-i+n]=false
     end
   end
 end
 
 def total_n_queens(n)
   visited=Hash.new
-  visited['column']=[false]*n
-  visited['mainDiag']=[false]*n*2
-  visited['cntDiag']=[false]*n*2
+  visited[:column]=[false]*n
+  visited[:mainDiag]=[false]*n*2
+  visited[:cntDiag]=[false]*n*2
   count=[0]
   search(0,visited,count,n)
   count[0]
