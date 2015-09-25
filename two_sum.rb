@@ -6,7 +6,7 @@
 
 def two_sum(nums, target)
   hash = Hash.new
-  nums.each_with_index do |n,i|
+  nums.each_with_index do |n, i|
     return [hash[n], i + 1] if hash[n]
     hash[target - n] = i + 1
   end
