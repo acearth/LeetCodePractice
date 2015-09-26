@@ -1,37 +1,18 @@
 class Queue
-  # Initialize your data structure here.
-  attr_accessor :stack
+  def initialize; @cur,@helper=[],[] end
+  def empty() @cur.size==0 end
+  def push(x) @cur<<x end
 
-  def initialize
-    @stack=Array.new
-
-  end
-
-  # @param {Integer} x
-  # @return {void}
-  def push(x)
-    stack.push(x)
-    return
-  end
-
-  # @return {void}
   def pop
-    a=stack.shift
-    return
+    @helper<<@cur.pop while @cur.size>0
+    @helper.pop if @helper.size>0
+    @cur<<@helper.pop while @helper.size>0
   end
-
-  # @return {Integer}
   def peek
-    return stack.first
-
-  end
-
-  # @return {Boolean}
-  def empty
-    if stack.size>0
-      return false
-    end
-    return true
+    @helper<<@cur.pop while @cur.size>0
+    result=@helper.pop if @helper.size>0
+    @helper<<result if result
+    @cur<<@helper.pop while @helper.size>0
+    result
   end
 end
-
