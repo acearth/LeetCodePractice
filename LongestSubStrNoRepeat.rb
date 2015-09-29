@@ -1,5 +1,4 @@
 def length_of_longest_substring(s)
-  h=Hash.new
   sub=String.new
   maxLen=0
   s.size.times do |i|
