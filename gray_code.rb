@@ -1,3 +1,12 @@
+def gray_code(n)
+  return [0] if n==0
+  res1=gray_code(n-1)
+  res2=res1.reverse
+  shift=2**(n-1)
+  res2.each_with_index{|n,i| res2[i]=n+shift }
+  res1+res2
+end
+
 # reflect gray code. refer to Combinatorics::Richard
 def gray_code(n)
   return [0] if n<1
@@ -10,7 +19,7 @@ def gray_code(n)
     if sigma baseLine
       baseLine=changeBit(baseLine, baseLine.length-1)
     else
-     baseLine=changeBit(baseLine, findPosition(baseLine))
+      baseLine=changeBit(baseLine, findPosition(baseLine))
     end
     result.push Integer("0b"+baseLine)
   end
