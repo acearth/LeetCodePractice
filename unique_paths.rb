@@ -1,5 +1,7 @@
 def unique_paths(m, n)
-  m,n=n,m if m>n
-  return 1 if m==1 ##if not, 1..m-1 with yield nil out
-  (n..n+m-2).inject(:*)/(1..m-1).inject(:*)
+  state=[1] * n
+  (m-1).times do |i|
+    1.upto(n-1){|j| state[j]+=state[j-1] }
+  end
+  state[-1]
 end
