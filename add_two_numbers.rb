@@ -1,25 +1,21 @@
-def add_two_numbers(l1, l2)
-  p, q=l1, l2
-  com=0
-  dummy=ListNode.new(0)
-  head=dummy
-  while p!=nil&&q!=nil
-    value=p.val+q.val+com
-    dummy.next=ListNode.new(value%10)
-    com=value/10
-    dummy=dummy.next
-    p, q = p.next, q.next
+def add_two_numbers(l1,l2)
+  dummy=result=ListNode.new(0)
+  carry=0
+  while l1!=nil && l2!=nil
+    sum=l1.val+l2.val+carry
+    result.next=ListNode.new(sum%10)
+    result=result.next
+    carry=sum/10
+    l1, l2 =l1.next, l2.next
   end
-  p=q if q!=nil
-  while p!=nil
-    value=p.val+com
-    dummy.next=ListNode.new(value%10)
-    com=value/10
-    dummy=dummy.next
-    p=p.next
+  remain = (l1==nil ? l2 : l1 )
+  while remain!=nil
+    (result.next=remain;break) if carry==0
+    sum = remain.val+carry
+    carry = sum/10
+    result.next = ListNode.new(sum%10)
+    result, remain = result.next, remain.next
   end
-  dummy.next=ListNode.new(com) if com!=0
-  head.next
+  result.next=ListNode.new(1) if carry!=0
+  dummy.next
 end
-
-
