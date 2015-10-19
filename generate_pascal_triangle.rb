@@ -1,12 +1,8 @@
-def generate(num_rows)
-  result=[]
-  return result if num_rows==0
-  result[0]=[1]
-  1.upto(num_rows-1) do |i|
-    result[i]=[]
-    (i+1).times do |j|
-      result[i][j]= (j==0||j==i) ? 1 : (result[i-1][j-1]+result[i-1][j])
-    end
-  end
-  result
+def generate(n)
+  return n<1 ? [] : [[1]] if n<2
+  res=generate(n-1)
+  cur=[1]
+  1.upto(res[-1].size-1) { |i| cur<<res[-1][i-1]+res[-1][i] }
+  cur<<1
+  res<<cur
 end

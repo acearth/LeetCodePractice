@@ -1,27 +1,19 @@
 def longest_consecutive(nums)
-  has=Hash.new
-  visited=Hash.new
-  nums.each{|n| has[n]=true ; visited[n]=false}
-  maxLen=0
-  has.each do |key,v|
-    len=0
-    originKey=key
-    while has[key] && !visited[key]
-      visited[key]=true
-      key+=1
-      len+=1
+  have=nums.map { |n| [n, true] }.to_h
+  max_len=0
+  have.each do |k, v|
+    next if not v
+    count=1
+    upper, lower=k+1, k-1
+    while have[upper]
+      have[upper]=false
+      upper, count=upper+1, count+1
     end
-    key=originKey-1
-    while has[key] && !visited[key]
-      visited[key]=true
-      key-=1
-      len+=1
+    while have[lower]
+      have[lower]=false
+      lower, count=lower-1, count+1
     end
-    maxLen=len if maxLen<len
+    max_len=count if count>max_len
   end
-  maxLen
+  max_len
 end
-
-a=[100, 4, 200, 1, 3, 2]
-p longest_consecutive a
-
