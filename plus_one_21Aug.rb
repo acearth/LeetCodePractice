@@ -1,12 +1,11 @@
 def plus_one(digits)
-  com=1  ##init to 1 and then execute
-  (digits.size-1).downto(0) do |i|
-    digits[i]+=com
-    com=digits[i]/10
-    break if com==0
-    digits[i]=digits[i]-10
+  carry=0
+  digits[-1]+=1
+  (digits.size-1).downto(1) do |i|
+    return digits if digits[i]<10
+    digits[i]=0
+    digits[i-1]+=1
   end
-  digits=[com]+digits if com==1
+  return [1,0]+digits[1..-1] if digits[0]==10
   digits
 end
-
