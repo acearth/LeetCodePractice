@@ -1,13 +1,9 @@
 def hamming_weight(n)
-  return 1+hamming_weight(2**31+n) if n<0
-  result=0
-  while n>0
-    result+=n%2
-    n=n>>1
+  return hamming_weight(~n)+1 if n<0
+  count=0
+  while n!=0
+    n=n&(n-1)
+    count+=1
   end
-  result
+  count
 end
-
-p hamming_weight(3)
-p hamming_weight(4)
-p hamming_weight(6)
