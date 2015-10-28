@@ -1,18 +1,13 @@
 def merge(nums1, m, nums2, n)
-  i1, i2=m-1, n-1
-  (m+n-1).downto(0) do |i|
-    return if i2<0
-    (nums1[0..i2]=nums2[0..i2]; return) if i1<0
-    if nums1[i1]>nums2[i2]
-      value=nums1[i1]
-      i1-=1
+  m,n=m-1,n-1
+  while m>-1 && n>-1
+    if nums1[m] > nums2[n]
+      nums1[m+n+1]=nums1[m]
+      m-=1
     else
-      value=nums2[i2]
-      i2-=1
+      nums1[m+n+1]=nums2[n]
+      n-=1
     end
-    nums1[i]=value
   end
-  return
+(nums1[n] = nums2[n]; n-=1)  while n>-1 # deal with remain2
 end
-
-merge([2,0], 1, [1], 1)
