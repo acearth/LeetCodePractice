@@ -1,4 +1,8 @@
-nclude<stdbool.h>
+//  Created by ArthurAce on 8/14/15
+//  Copyright (c) 2015 ArthurAce. All rights reserved.
+// @PURPOSE: regex matching
+
+#include<stdbool.h>
 #include<stdio.h>
 #include<string.h>
 bool isMatch(char* s, char* p){
@@ -10,7 +14,7 @@ bool isMatch(char* s, char* p){
         }
         return s[0]==p[0]||p[0]=='.';
     }else if(p[1]!='*'){
-        if (s[0]!=p[0]&&p[0]!='.'||strlen(s)==0){ //don't care s.empty?,  s[0] will do it
+        if (s[0]!=p[0]&&p[0]!='.'||strlen(s)==0){
             return false;
         }
         return isMatch(s+1,p+1);
@@ -27,34 +31,4 @@ bool isMatch(char* s, char* p){
         }
     }
     return false;
-}
-int main(){
-    char* s1="aa";
-    char* p1="aa";
-    if(isMatch(s1,p1)){
-        printf("true\n");
-    }else{
-        printf("false\n");
-    }
-    p1="a*";
-    if(isMatch(s1,p1)){
-        printf("true\n");
-    }else{
-        printf("false\n");
-    }
-    p1=".*";
-    if(isMatch(s1,p1)){
-        printf("true\n");
-    }else{
-        printf("false\n");
-    }
-    s1="";
-    p1="..*";
-    if(isMatch(s1,p1)){
-        printf("true\n");
-    }else{
-        printf("false\n");
-    }
-
-    
 }
