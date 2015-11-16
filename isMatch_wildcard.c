@@ -1,7 +1,7 @@
 #include<stdbool.h>
 #include<stdio.h>
 #include<string.h>
-
+//TDOO: Wrong file,  should do this by NFA.
 bool isMatch(char* s, char* p){
 	if(strlen(p)==0) return strlen(s)==0;
 	if(strlen(p)==1){
