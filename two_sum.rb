@@ -1,4 +1,4 @@
 def two_sum(nums, target)
-  has={}
-  nums.each_with_index{|n,i| has[target-n] ? (return [has[target-n],i+1]) : (has[n]=i+1) }
+  have={}
+  nums.each_with_index{|n,i| have[target-n] ? (return [have[target-n],i+1]) : (have[n]=i+1) }
 end
