@@ -8,12 +8,10 @@ class Stack
     @last = x
   end
 
-  def pop
-    return if @last==nil
-    tmp = []
-    tmp<< @que.shift while @que.size > 1
+  def pop(alter=[]) # key parameter used
+    alter<< @que.shift while @que.size > 1
     @last = @que.shift
-    @que = tmp
+    @que = alter
   end
 
   def top
