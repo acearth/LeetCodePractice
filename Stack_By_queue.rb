@@ -1,31 +1,26 @@
 class Stack
-  # Initialize your data structure here.
-  attr_accessor :queue
   def initialize
-    @queue=Array.new
+    @que, @last = [],nil
   end
 
-  # @param {Integer} x
-  # @return {void}
   def push(x)
-    queue<<x
-    return
+    @que << @last if @last!=nil
+    @last = x
   end
 
-  # @return {void}
   def pop
-    queue.pop
-    return
+    return if @last==nil
+    tmp = []
+    tmp<< @que.shift while @que.size > 1
+    @last = @que.shift
+    @que = tmp
   end
 
-  # @return {Integer}
   def top
-    return queue.last
+    @last
   end
 
-  # @return {Boolean}
   def empty
-    return false if queue==nil
-    return queue.size<1
+    @last==nil
   end
 end
