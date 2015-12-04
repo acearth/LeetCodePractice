@@ -3,7 +3,6 @@ def level_order(root)
   queue, result = [root], []
   while !queue.empty?
     result << queue.map(&:val)
-    #queue = queue.flat_map { |node| [node.left, node.right] }.compact
     queue.map! { |node| [node.left, node.right] }.flatten!.compact!
   end
   result
