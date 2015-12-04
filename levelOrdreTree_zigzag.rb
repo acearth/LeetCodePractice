@@ -1,46 +1,16 @@
-require './base/TreeNode'
-
-def zigzag_level_order(root)
-  return [] if root ==nil
-  ta=Array.new
-  tb=Array.new
-  qu=Array.new
-  qu.push root
-  i=0
-  while true
-    tal=Array.new
-    que=Array.new
-    while qu.size>0
-      tr=qu.shift
-      que.push tr.left if tr.left!=nil
-      que.push tr.right if tr.right !=nil
-      tal.push tr.val
-    end
-    qu=que
-    i+=1
-    tal.reverse! if i%2==0
-    ta.push tal
-    break if que.size==0
+def level_order(root)
+  return [] if not root
+  queue, result = [root], []
+  while !queue.empty?
+    result << queue.map(&:val)
+    #queue = queue.flat_map { |node| [node.left, node.right] }.compact
+    queue.map! { |node| [node.left, node.right] }.flatten!.compact!
   end
-  return ta
-
+  result
 end
 
-
-t1=TreeNode.new(1)
-t2=TreeNode.new(2)
-t3=TreeNode.new(3)
-t4=TreeNode.new(4)
-t5=TreeNode.new(5)
-t1.left=t2
-t1.right=t3
-t2.left=t4
-t3.left=t5
-
-t1.preOrder
-puts
-t1.midOrder
-
-puts
-p level_order(t1)
-
+def zigzag_level_order(root)
+  result = level_order(root)
+  result.size.times { |i| result[i].reverse! if i.odd? }
+  result
+end
