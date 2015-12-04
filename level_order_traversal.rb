@@ -1,9 +1,9 @@
 def level_order(root)
-  return [] if not root
   queue, result = [root], []
-  while queue.size > 0
+  while queue.any?
     result << queue.map(&:val)
-    queue = queue.map { |node| [node.left, node.right] }.flatten.compact
+    queue.map! { |node| [node.left, node.right].compact }.flatten!
   end
   result
 end
+#Thanks to @StefanPochmann for modifying my solution.
