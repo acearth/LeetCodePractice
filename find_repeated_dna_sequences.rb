@@ -1,11 +1,5 @@
 def find_repeated_dna_sequences(s)
-  upper=s.size-9
-  hash=Hash.new
-  result=[]
-  upper.times do |i|
-    cur=s[i..i+9]
-    hash[cur] = hash[cur]==nil ? 1 : (hash[cur]+1)
-  end
-  hash.each{|k,v| result<<k if v>1}
-  result
+  count = Hash.new { |hash,key| hash[key] = 0 }
+  (s.size - 9).times { |i| count[s[i..i+9]] += 1 }
+  count.reject { |k,v| v < 2}.keys
 end
