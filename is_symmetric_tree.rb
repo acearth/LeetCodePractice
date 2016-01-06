@@ -1,10 +1,9 @@
-def is_symmetric(root)
-  return true if root==nil
-  return get_help(root.left,root.right)
+def is_symmetric(tree)
+  tree ? is_sym(tree.left, tree.right) : true
 end
 
-def get_help(p,q)
+def is_sym(p, q)
   return p==q if !p || !q
   return false if p.val!=q.val
-  get_help(p.left,q.right) && get_help(p.right, q.left)
+  is_sym(p.left, q.right) && is_sym(p.right, q.left)
 end
