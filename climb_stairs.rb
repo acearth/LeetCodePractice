@@ -1,7 +1,5 @@
 def climb_stairs(n)
-  res=[1,1]
-  (n+1).times{res << res[-2]+res[-1] }
-  res[n]
+  steps = [1, 1]
+  (n-1).times { steps << steps[-2] + steps[-1] }
+  steps[n]
 end
-
-
