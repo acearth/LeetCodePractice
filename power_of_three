@@ -1,0 +1,17 @@
+def is_power_of_three(n)
+  n/=3 while n>1&&n%3==0
+  n==1?true:false
+end
+
+a=1
+b=3
+c=9
+d=27
+e=77
+f=243
+p "in:#{a} , out:#{is_power_of_three(a)}"
+p "in:#{b} , out:#{is_power_of_three(b)}"
+p "in:#{c} , out:#{is_power_of_three(c)}"
+p "in:#{d} , out:#{is_power_of_three(d)}"
+p "in:#{e} , out:#{is_power_of_three(e)}"
+p "in:#{f} , out:#{is_power_of_three(f)}"
