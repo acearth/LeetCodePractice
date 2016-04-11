@@ -38,7 +38,8 @@ end
 
 def process(state, str)
   return state if str.empty?
-  current, remain = str[0], str[1..-1]
+  current = str[0]
+  remain = str[1..-1]
   case state
   when 0
     return process(1, remain) if /[+-]/ =~ current
@@ -72,14 +73,7 @@ def process(state, str)
   end
   false
 end
+
 def is_number_dfa(s)
-  [3,4,5,6,9].include? process(0, s.strip)
+  [3, 4, 5, 6, 9].include? process(0, s.strip)
 end
-p is_number(" 0.1  ")
-p is_number("2e10")
-p is_number("+.8")
-p is_number(".8")
-p is_number("46.e8")
-p is_number(".2e81")
-p is_number("abc")==false
-p is_number("1 a")==false
