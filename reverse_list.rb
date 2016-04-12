@@ -1,11 +1,11 @@
 def reverse_list(head)
-  return if not head
-  reverse(head)[0]
+  return reverse(head).first if head
 end
+
 def reverse(head)
-  return [head,head] if head.next==nil
-  neo,tail=reverse(head.next)
-  head.next=nil
-  tail.next=head
-  [neo,head]
+  return [head, head] unless head.next
+  neo, tail = reverse(head.next)
+  tail.next = head
+  head.next = nil
+  [neo, head]
 end
