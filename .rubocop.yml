@@ -1,0 +1,6 @@
+AllCops:
+   Exclude:
+     - '1permute_distinct.rb'
+
+Metrics/LineLength:
+  Max: 110
