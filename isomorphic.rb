@@ -1,18 +1,4 @@
-def is_isomorphic(s, t)
-  count=-1
-  hash1,hash2={},{}
-  s.chars.each do |ch|
-    if not hash1[ch]
-      count+=1
-      hash1[ch]=count
-    end
-  end
-  count=-1
-  t.chars.each do |ch|
-    if not hash2[ch]
-      count+=1
-      hash2[ch]=count
-    end
-  end
-  s.chars.map{|i| hash1[i] } == t.chars.map{|i| hash2[i] }
+def is_isomorphic(s, t, maps = {}, mapt = {})
+  t.chars.each_with_index.map { |ch, i| mapt[ch] ||= s[i] }.join == s &&
+    s.chars.each_with_index.map { |ch, i| maps[ch] ||= t[i] }.join == t
 end
