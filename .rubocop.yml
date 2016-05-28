@@ -1,7 +1,7 @@
 Metrics/LineLength:
   Max: 110
 Metrics/AbcSize:
-  Max: 18
+  Max: 36
 
 Style/PredicateName:
   # should still be accepted
