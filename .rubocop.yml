@@ -1,6 +1,9 @@
-AllCops:
-   Exclude:
-     - '1permute_distinct.rb'
-
 Metrics/LineLength:
   Max: 110
+Metrics/AbcSize:
+  Max: 18
+
+Style/PredicateName:
+  # should still be accepted
+  NameWhitelist:
+    - is_ugly
