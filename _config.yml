@@ -1,8 +1,8 @@
 # Site settings
 title: Arthur
-email: arthur4it@gmail.com
+email: arthur4it^_^gmail.com
 description: > # this means to ignore newlines until "baseurl:"
-        Arthur's solution
+        Arthur's solution_0
 baseurl: "/LeetCodePractice" # the subpath of your site, e.g. /blog/
 url: "http://accearth.github.io" # the base hostname & protocol for your site
 github_username:  acearth
