@@ -1,6 +1,4 @@
-﻿Original from ...
-__________
-这里放置着我的博客数据
+﻿这里放置着我的博客数据
 ===
 
 当我推送东西到这里时，[Jekyll](http://github.com/mojombo/jekyll)会将这个库自动转化为一个静态网站。
