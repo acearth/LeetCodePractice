@@ -1,0 +1,13 @@
+# Site settings
+title: Arthur's Leetcode Solutions
+email: arthur4it@gmail.com
+description: > # this means to ignore newlines until "baseurl:"
+        Information about my solutions for Leetcode problems.
+baseurl: "/LeetCodePractice" # the subpath of your site, e.g. /blog/
+url: "http://acearthu.github.io"
+github_username:  acearth
+
+# Build settings
+markdown: rdiscount
+
+permalink: /:year/:month/:day/:title.html
