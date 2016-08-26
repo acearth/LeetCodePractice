@@ -3,6 +3,9 @@ Metrics/LineLength:
 Metrics/AbcSize:
   Max: 36
 
+Metrics/MethodLength:
+  Max: 15
+
 Style/PredicateName:
   # should still be accepted
   NameWhitelist:
