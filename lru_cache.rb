@@ -1,4 +1,4 @@
-# inner node in cache
+# cache node
 class Node
   def initialize(k, v)
     @key = k
@@ -9,35 +9,33 @@ class Node
   attr_accessor :key, :val, :next, :pre
 end
 
-# cache documentation here
+# LRU cache implemented by hash and double circular linked list, named as snake (who bites his tail)
 class LRUCache
   def initialize(capacity)
-    @have = {}
-    @chain = Node.new(-1, -1)
-    @head = @chain
-    (capacity - 1).times do
-      @head.next = Node.new(-1, -1)
-      @head.next.pre = @head
-      @head = @head.next
+    @snake = p = Node.new(-1, -1)
+    capacity.times do
+      p.next = Node.new(-1, -1)
+      p.next.pre = p
+      p = p.next
     end
-    @head.next = nil
-    @tail = @head
+    p.pre.next = @snake
+    @snake.pre = p.pre
+    @have = {}
   end
 
   def get(key)
     return -1 unless @have[key]
-    touch(@have[key])
-    @have[key].val
+    touch(@have[key]) && @have[key].val
   end
 
   def set(key, value)
     if @have[key]
       @have[key].val = value
-    else # reserve node by substitute key and val
-      @have.delete(@tail.key)
-      @tail.key = key
-      @tail.val = value
-      @have[key] = @tail
+    else # substitute tail's key and value
+      @have.delete(@snake.pre.key)
+      @snake.pre.key = key
+      @snake.pre.val = value
+      @have[key] = @snake.pre
     end
     touch(@have[key])
   end
@@ -45,17 +43,14 @@ class LRUCache
   private
 
   def touch(node)
-    return if node == @chain # on head or capacity == 1
-    if node == @tail
-      @tail = @tail.pre
-      @tail.next = nil
-    else
-      node.pre.next = node.next
-      node.next.pre = node.pre
-    end
-    node.pre = nil
-    node.next = @chain
-    @chain.pre = node
-    @chain = node
+    return true if node == @snake # on head or capacity == 1
+    return @snake = @snake.pre if node == @snake.pre # tail
+    node.pre.next = node.next
+    node.next.pre = node.pre
+    node.pre = @snake.pre
+    node.next = @snake
+    @snake.pre.next = node
+    @snake.pre = node
+    @snake = node
   end
 end
