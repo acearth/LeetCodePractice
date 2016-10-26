@@ -1,60 +1,37 @@
 class TreeNode
   attr_accessor :val, :left, :right
 
-  def initialize(val)
-    @val=val
-    @left, @right=nil, nil
+  def initialize(value)
+    @val = value
+    @left, @right = nil, nil
   end
 
-  def preOrder
+  def pre_order
     puts @val
-    if self.left!=nil
-      #preOrder self.left
-      self.left.preOrder
-    end
-    if self.right!=nil
-      #preOrder self.right
-      self.right.preOrder
-    end
+    self.left.pre_order if self.left
+    self.right.pre_order if self.right
   end
 
-  def midOrder
-    if self.left!=nil
-      #preOrder self.left
-      self.left.midOrder
-    end
+  def in_order
+    self.left.in_order if self.left
     puts @val
-    if self.right!=nil
-      #preOrder self.right
-      self.right.midOrder
-    end
+    self.right.in_order if self.right
   end
 
-  def postOrder
-    if self.left!=nil
-      #preOrder self.left
-      self.left.postOrder
-    end
-    if self.right!=nil
-      #preOrder self.right
-      self.right.postOrder
-    end
+  def post_order
+    self.left.post_order if self.left
+    self.right.post_order if self.right
     puts @val
   end
 
-  def levelOrder
-    return if self==nil
-    q=Array.new
-    q.push self
-    while q.size>0
-      tr=q.shift
-      q.push tr.left if tr.left!=nil
-      q.push tr.right if tr.right!=nil
+  def level_order
+    queue = [self]
+    while queue.size>0
+      tr = queue.shift
+      queue << tr.left if tr.left
+      queue << tr.right if tr.right
       puts tr.val
     end
   end
-
 end
-
-
 
