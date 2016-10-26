@@ -1,62 +1,40 @@
 def calculate(s)
-  tokens=getExpression(s)
-  tmp=[]
-  resultStack=[]
-  tokens.each_with_index do |token, i|
-    if /[\/|\*]/ =~ token.to_s
-      tmp=[resultStack.pop] if tmp.size==0
-      tmp<<token
-    elsif /[+|-]/ =~ token.to_s
-      resultStack<<token
-    elsif tmp.size!=0
-      tmp<<token
-      resultStack<<calculate_pure(tmp)
-      tmp=[]
+  nums = []
+  ops = []
+  cur_num = -1
+  s.chars.each do |ch|
+    if ch.ord.between?(48, 57)
+      cur_num = 0 if cur_num == -1
+      cur_num = cur_num * 10 + ch.ord - 48  # ASCII code of '0' is 48
     else
-      resultStack<<token
+      nums << cur_num if cur_num > -1
+      cur_num = -1
     end
+    ops << ch.to_sym if ch == '+' || ch == '-' || ch == '*' || ch == '/'
   end
-  calculate_pure(resultStack)
+  nums << cur_num if cur_num != -1
+  sequential_eval(nums, ops)
 end
 
-def calculate_pure(arr)
-  cur=2
-  while cur<arr.size
-    if arr[cur-1]=='+'
-      arr[0]=arr[0]+arr[cur]
-    elsif arr[cur-1]=='-'
-      arr[0]=arr[0]-arr[cur]
-    elsif arr[cur-1]=='*'
-      arr[0]=arr[0]*arr[cur]
+def sequential_eval(nums, ops)
+  len = ops.length
+  i = 0
+  result = nums.first
+  while i < len
+    if ops[i] == :* || ops[i] == :/ || ops[i+1] == :+ || ops[i+1] == :- || i+1 == len
+      result = [result, nums[i+1]].reduce(ops[i])
+      i += 1
     else
-      arr[0]=arr[0]/arr[cur]
-    end
-    cur+=2
-  end
-  arr[0]
-end
-def getExpression(str)
-  result=[]
-  tmp=nil
-  str.chars.each do |ch|
-    if /\d/=~ ch
-      tmp=0 if tmp==nil
-      tmp*=10
-      tmp+=ch.to_i
-    elsif /[\*|\/|+|-]/ =~ ch
-      result<<tmp if tmp!=nil
-      result<<ch
-      tmp=nil
+      pre_op, new_result = ops[i], nums[i+1]
+      i += 1
+      while ops[i] == :* || ops[i] == :/
+        new_result=[new_result, nums[i+1]].reduce(ops[i])
+        i += 1
+      end
+      result = [result, new_result].reduce(pre_op)
     end
   end
-  result<<tmp if tmp!=nil
   result
 end
 
-s='3+2*2'
-p calculate(s)
-s='3+2/2'
-p calculate(s)
-s=" 3+5 / 2 "
-p calculate(s)
-
+#calculate("3+5 / 2 ") == 5 # <-- USAGE
