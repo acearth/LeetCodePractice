@@ -16,7 +16,7 @@ class Trie
   def insert(word)
     cur = @root
     word.chars.each { |ch| cur = (cur.children[ch.ord - 'a'.ord] ||= TrieNode.new) }
-    cur.is_tail=true
+    cur.is_tail = true
   end
 
   def search(word)
