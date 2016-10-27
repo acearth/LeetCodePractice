@@ -1,5 +1,5 @@
 # USAGE
-# 1. Generate list by array
+# 1. generate list by array
 # the_list = ListNode.generate([1,2,3])
 # 2. traverse
 # the_list.traverse   # => 1 -> 2 -> 3
