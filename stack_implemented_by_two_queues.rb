@@ -1,15 +1,16 @@
 class Stack
   def initialize
-    @que, @last = [],nil
+    @que = []
   end
 
   def push(x)
-    @que << @last if @last!=nil
+    @last && @que << @last
     @last = x
   end
 
-  def pop(alter=[]) # key parameter used
-    alter<< @que.shift while @que.size > 1
+  def pop
+    alter = []
+    alter << @que.shift while @que.size > 1
     @last = @que.shift
     @que = alter
   end
@@ -19,6 +20,6 @@ class Stack
   end
 
   def empty
-    @last==nil
+    !@last
   end
 end

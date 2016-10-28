@@ -1,3 +1,10 @@
+# USAGE
+# 1. generate list by array
+# the_list = ListNode.generate([1,2,3])
+# 2. traverse
+# the_list.traverse   # => 1 -> 2 -> 3
+# ListNode.generate(['a','b','c']).traverse  # => a -> b -> c
+
 class ListNode
   attr_accessor :val, :next
 
@@ -24,8 +31,3 @@ class ListNode
     self.next.traverse if self.next
   end
 end
-
-# Usage lists below:
-# list = ListNode.generate([1, 2, 3, 5, 4, 0])
-# list.traverse
-
