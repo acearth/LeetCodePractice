@@ -1,12 +1,11 @@
 def preorder_traversal(tree)
-  result, stack = [], []
-  while tree || stack.any?
-    while tree
-      result << tree.val
-      stack << tree
-      tree = tree.left
-    end
-    tree = stack.pop.right
+  stack, result = [tree], []
+  while stack.any?
+    tree = stack.pop
+    result << tree.val
+    stack << tree.right if tree.right
+    stack << tree.left if tree.left
   end
   result
 end
+
