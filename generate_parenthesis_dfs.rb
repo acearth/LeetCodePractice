@@ -2,8 +2,8 @@ def generate_parenthesis(n)
   dfs(0, n * 2, '')
 end
 
-def dfs(state, resource, have)
-  return [have] if resource == 0 && state == 0
-  return [] if state < 0 || resource < 1
-  dfs(state - 1, resource - 1, have + ')') + dfs(state + 1, resource - 1, have + '(')
+def dfs(balance, remain, produced)
+  return [produced] if remain == 0 && balance == 0
+  return [] if balance < 0 || remain < 1
+  dfs(balance - 1, remain - 1, produced + ')') + dfs(balance + 1, remain - 1, produced + '(')
 end
