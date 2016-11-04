@@ -6,5 +6,4 @@ def merge(nums1, m, nums2, n)
                     m -= 1; nums1[m]
                   end
   end
-  nums1
 end
