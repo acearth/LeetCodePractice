@@ -1,4 +1,9 @@
+# one liner
 def add_binary(a, b)
+  (a.to_i(2) + b.to_i(2)).to_s(2)
+end
+
+def add_binary_bitwise(a, b)
   return a if b == '0'
   return add_binary(b, a) if a.length < b.length
   carry = 0
