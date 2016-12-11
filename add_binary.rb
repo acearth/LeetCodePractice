@@ -1,14 +1,13 @@
 def add_binary(a, b)
-  return add_binary(b, a) if a.size<b.size
-  a=a.chars.map { |ch| ch.to_i }.reverse
-  b=b.chars.map { |ch| ch.to_i }.reverse
-  b += [0]*(a.size-b.size)
-  com=0
-  b.each_with_index do |n, i|
-    value=n+com+a[i]
-    a[i]=value%2
-    com=value/2
+  return a if b == '0'
+  return add_binary(b, a) if a.length < b.length
+  carry = 0
+  ans = (1..b.length).to_a.map do |k|
+    i, j = a[-k].to_i, b[-k].to_i
+    cur = i ^ j ^ carry
+    carry = (i + j + carry) >> 1
+    cur
   end
-  a<<1 if com>0
-  a.reverse.join.to_s
+  header = add_binary(carry.to_s, a[0...a.length - b.length])
+  (header == '0' ? '' : header) + ans.reverse.join
 end
