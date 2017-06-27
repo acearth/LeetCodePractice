@@ -1,7 +1,5 @@
-def binary_tree_paths(tree)
-  return [] if not tree
-  res=binary_tree_paths(tree.left) + binary_tree_paths(tree.right)
-  return ["#{tree.val}"] if res.size==0
-  prefix="#{tree.val}->"
-  res.map{|sub| prefix+sub }
+def binary_tree_paths(tree, prefix = '')
+  return [] unless tree
+  return [prefix + tree.val.to_s] unless tree.left || tree.right
+  binary_tree_paths(tree.left, prefix + "#{tree.val}->") + binary_tree_paths(tree.right, prefix + "#{tree.val}->")
 end
