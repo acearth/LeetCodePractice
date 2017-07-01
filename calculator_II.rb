@@ -1,40 +1,27 @@
 def calculate(s)
-  nums = []
-  ops = []
-  cur_num = -1
-  s.chars.each do |ch|
-    if ch.ord.between?(48, 57)
-      cur_num = 0 if cur_num == -1
-      cur_num = cur_num * 10 + ch.ord - 48  # ASCII code of '0' is 48
+  stack, m_stack= [], []
+  s.scan(/\w+|\+|\-|\*|\//) do |token|
+    if token == '*' || token == '/'
+      m_stack << stack.pop if m_stack.empty?
+      m_stack << token.to_sym
+    elsif token == '+' || token == '-'
+      stack << m_stack.pop if m_stack.any?
+      stack << token.to_sym
     else
-      nums << cur_num if cur_num > -1
-      cur_num = -1
+      if m_stack.any?
+        op = m_stack.pop
+        m_stack[-1] = [m_stack[-1], token.to_i].inject(op)
+      else
+        stack << token.to_i
+      end
     end
-    ops << ch.to_sym if ch == '+' || ch == '-' || ch == '*' || ch == '/'
   end
-  nums << cur_num if cur_num != -1
-  sequential_eval(nums, ops)
+  stack << m_stack.pop if m_stack.any?
+  compute(stack)
 end
 
-def sequential_eval(nums, ops)
-  len = ops.length
-  i = 0
-  result = nums.first
-  while i < len
-    if ops[i] == :* || ops[i] == :/ || ops[i+1] == :+ || ops[i+1] == :- || i+1 == len
-      result = [result, nums[i+1]].reduce(ops[i])
-      i += 1
-    else
-      pre_op, new_result = ops[i], nums[i+1]
-      i += 1
-      while ops[i] == :* || ops[i] == :/
-        new_result=[new_result, nums[i+1]].reduce(ops[i])
-        i += 1
-      end
-      result = [result, new_result].reduce(pre_op)
-    end
-  end
+def compute(stack)
+  result, op = 0, :+
+  stack.each {|token| (token == :+ || token == :-) ? op = token : result = [result, token].inject(op)}
   result
 end
-
-#calculate("3+5 / 2 ") == 5 # <-- USAGE
