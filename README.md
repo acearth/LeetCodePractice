@@ -1,5 +1,7 @@
 # LeetCodePractice
 
+[![Documentation Status](https://img.shields.io/badge/中文文档-最新-brightgreen.svg)](README-CN.md)
+
 This project consists of my solutions for Leetcode(https://leetcode.com/problems).
 
 ## USAGE
@@ -14,12 +16,3 @@ So, some solutions are working in a tricky way and some others are worked ineffe
 Please feel free to issue it!
 
 200 questions passed at Augest 19, 2015.
-
-# 中文说明(In Chinese)
-
-使用Ruby写的LeetCode 算法题解，欢迎批评和参考！
-可以使用leetcode题目预定义的方法名或者关键字查询我的解法。
-
-截止8月8日，已通过162题。
-截止8月19日，已通过200题。(2015)
-
