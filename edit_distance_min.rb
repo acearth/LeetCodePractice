@@ -1,23 +1,12 @@
 def min_distance(word1, word2)
-  return word1.length if word2.length==0
-  return word2.length if word1.length==0
-  state=Array.new
-  state[0]=Array.new
-  (word2.length+1).times do |i|
-    state[0].push i
-  end
-  for i in 1..word1.length do
-    state.push Array.new
-    state[i][0]=i
-  end
+  step = (0..word2.length).to_a
   word1.length.times do |i|
+    pre, step[0] = step[0], i + 1
     word2.length.times do |j|
-      state[i+1][j+1] = word1[i]==word2[j] ? state[i][j] : [state[i][j+1], state[i+1][j], state[i][j]].min+1
+      current = step[j + 1]
+      step[j + 1] = word1[i] == word2[j] ? pre : 1 + [pre, current, step[j]].min
+      pre = current
     end
   end
-  state[-1][-1]
+  step.last
 end
-
-p min_distance "ab", "bc"
-p min_distance "b", "c"
-
