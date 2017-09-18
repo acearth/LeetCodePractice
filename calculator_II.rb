@@ -7,13 +7,11 @@ def calculate(s)
     elsif token == '+' || token == '-'
       stack << m_stack.pop if m_stack.any?
       stack << token.to_sym
+    elsif m_stack.any?
+      op = m_stack.pop
+      m_stack[-1] = [m_stack[-1], token.to_i].inject(op)
     else
-      if m_stack.any?
-        op = m_stack.pop
-        m_stack[-1] = [m_stack[-1], token.to_i].inject(op)
-      else
-        stack << token.to_i
-      end
+      stack << token.to_i
     end
   end
   stack << m_stack.pop if m_stack.any?
