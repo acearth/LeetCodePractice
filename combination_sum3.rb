@@ -1,29 +1,19 @@
-def combination_sum3(k,target)
-  result=Hash.new
-  dfs([1,2,3,4,5,6,7,8,9], Array.new, 0, target, result)
-  res=Array.new
-  result.each{|key,v| res.push key if v==true&&key.size==k}
-  res.sort
+# comb sum 3: backtracking
+# @param {Integer} k
+# @param {Integer} n
+# @return {Integer[][]}
+def combination_sum3(k, n)
+  search(0,[],(1..9).to_a,k,n)
 end
 
-def dfs(nums, tmpNums, curSum, target, result)
-  for i in 0..nums.size-1
-    if target==curSum+nums[i]
-      tmpNumsNew=tmpNums.dup
-      tmpNumsNew.push nums[i]
-      result[tmpNumsNew.sort]=true
-    elsif target>curSum+nums[i]
-      tmpNumsNew=tmpNums.dup
-      tmpNumsNew.push nums[i]
-      break if i==nums.size-1
-      dfs(nums[i+1..-1], tmpNumsNew, curSum+nums[i], target, result)
-    end
+def search(cur_sum,cur_combination, candidates, k,target)
+  if  k < 0 || cur_sum > target
+    []
+  elsif k == 0
+    cur_sum == target ? [cur_combination.sort] : []
+  else
+    candidates.flat_map do |cur|
+      search(cur_sum + cur, [cur]+ cur_combination, candidates - [cur],k-1, target)
+    end.uniq
   end
 end
-
-ar=2, 3, 6, 7
-p combination_sum3  3,7
-ar=[8, 7, 4, 3]
-p combination_sum3  3,11
-ar=10, 1, 2, 7, 6, 1, 5
-p combination_sum3  3,8
