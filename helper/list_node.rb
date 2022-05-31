@@ -11,14 +11,14 @@ class ListNode
   class << self
     def generate(array)
       array.map! { |v| ListNode.new(v) }
-      array.length.times { |i| array[i].next = array[i+1] }
+      array.length.times { |i| array[i].next = array[i + 1] }
       array.first
     end
   end
 
-  def initialize(value)
+  def initialize(value, next_node = nil)
     @val = value
-    @next = nil
+    @next = next_node
   end
 
   def to_s
