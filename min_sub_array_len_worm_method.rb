@@ -1,15 +1,16 @@
+#Q-207:
+# sliding window // worm method
 def min_sub_array_len(s, nums)
-  ans = 2 << 32
-  sum = tail = front = 0
-  len = nums.length
-  while front < len
-    sum += nums[front]
-    front += 1
+  len = 2 << 32 #initialized as MAX_VALUE
+  sum = tail = head = 0
+  while head < nums.length
+    sum += nums[head]
+    head += 1
     while sum >= s
-      ans = [ans, front-tail].min
+      len = [len, head - tail].min
       sum -= nums[tail]
       tail += 1
     end
   end
-  ans == 2 << 32 ? 0 : ans
+  len == 2 << 32 ? 0 : len
 end
