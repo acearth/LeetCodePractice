@@ -33,26 +33,22 @@ end
 def reverse_k_group_without_subroutine(head, k)
   pre = dummy = ListNode.new(0, head)
   while head
-    #check remain elements more than k, otherwise return it
     q = head
     k.times do
       return dummy.next unless q
       q = q.next
     end
-    # k-group reverse
-    sub_head = tail = nil
+    cur_head = cur_tail = nil
     k.times do
       next_node = head.next
-      head.next = sub_head
-      tail = head if tail == nil
-      sub_head = head
+      head.next = cur_head
+      cur_head = head
+      cur_tail ||= cur_head # depends on cur_head!
       head = next_node
     end
-    # join segments
-    pre.next = sub_head
-    tail.next = head
-    # reset pre to current tail, note: next tail is always null, so just ignore it
-    pre = tail
+    cur_tail.next = head
+    pre.next = cur_head
+    pre = cur_tail
   end
   dummy.next
 end
