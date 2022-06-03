@@ -1,10 +1,9 @@
+# q-203: list op
 def remove_elements(head, val)
-  new_head, new_head.next = ListNode.new(1), head
-  pre, p = new_head, head
+  p = dummy = ListNode.new(0, head)
   while p
-    pre.next = p &&  pre = p if p.val != val
+    p.next = p.next.next while p.next && p.next.val == val
     p = p.next
-  end  
-  pre.next = nil
-  new_head.next
+  end
+  dummy.next
 end
