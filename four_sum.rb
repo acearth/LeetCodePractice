@@ -41,14 +41,30 @@ def dfs_search(nums, i, remain_steps, target, cur_list, result)
   end
 end
 
-# a = [1, 0, -1, 0, -2, 2]
-# p four_sum(a, 0)
-#
-# a = [-3, -2, -1, 0, 0, 1, 2, 3]
-# p four_sum(a, 0)
-#
-#
-# a = [2, 2, 2, 2, 2]
-# p four_sum(a, 8)
-a = [2] * 200
-p four_sum(a, 8)
+def four_sum_with_2_pointers(nums, target)
+  nums.sort!
+  result = []
+  nums.size.times do |i|
+    next if i > 0 && nums[i] == nums[i - 1]
+    (i + 1...nums.size).each do |j|
+      next if j > i + 1 && nums[j] == nums[j - 1]
+      left, right = j + 1, nums.size - 1
+      while left < right
+        case nums[i] + nums[j] + nums[left] + nums[right] <=> target
+        when 0 # <=> outputs 0 when equal
+          result << [nums[i], nums[j], nums[left], nums[right]]
+          left += 1 while nums[left] == nums[left + 1]
+          right -= 1 while nums[right] == nums[right - 1]
+          left, right = left + 1, right - 1
+        when -1 # <=> smaller
+          left += 1 while nums[left] == nums[left + 1]
+          left += 1
+        when 1 # larger
+          right -= 1 while nums[right] == nums[right - 1]
+          right -= 1
+        end
+      end
+    end
+  end
+  result
+end
