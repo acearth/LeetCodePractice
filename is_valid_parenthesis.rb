@@ -1,3 +1,4 @@
+# year-2015
 def is_valid(s)
   hash=[  ['(',')'],
           ['[',']'],
@@ -9,4 +10,19 @@ def is_valid(s)
     (stack.pop;stack.pop) if hash[stack[-2]]==stack[-1]
   end
   stack.size==0
+end
+
+# Q-20: valid parenthesis by stack
+# 6/jun/2022
+def is_valid(s)
+  left, paired, store = ['(', '[', '{'], ['()', '[]', '{}'], []
+  s.chars.each do |ch|
+    if left.include? ch
+      store << ch
+    else
+      pre = store.pop
+      return false unless pre && (paired.include? pre + ch)
+    end
+  end
+  store.empty?
 end
