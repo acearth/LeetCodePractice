@@ -7,8 +7,8 @@ class Queue
     @in << x
   end
 
-  def pop    ## This method should NOT return value but it does.
-    (@out << @in.pop while @in.size > 0) if @out.empty?
+  def pop
+    @out << @in.pop until @in.empty? if @out.empty?
     @out.pop
   end
 
