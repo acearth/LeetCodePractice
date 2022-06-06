@@ -1,25 +1,25 @@
-class Stack
-  def initialize
-    @que = []
+# Q-225: stack implemented by queues
+# NOTE: @out queue is ancillary
+class MyStack
+  def initialize()
+    @in, @out = [], []
   end
 
   def push(x)
-    @last && @que << @last
-    @last = x
+    @in << x
   end
 
-  def pop
-    alter = []
-    alter << @que.shift while @que.size > 1
-    @last = @que.shift
-    @que = alter
+  def pop()
+    @in, @out = @out, @in if @in.empty?
+    @out << @in.shift while @in.size > 1
+    @in.shift
   end
 
-  def top
-    @last
+  def top()
+    @in.last || @out.last
   end
 
-  def empty
-    !@last
+  def empty()
+    @in.empty? && @out.empty?
   end
 end
