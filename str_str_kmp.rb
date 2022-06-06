@@ -1,8 +1,9 @@
 # Q-28: KMP string pattern matching
 # @note:
-#   1. prefix computing start from at least one prefix;
-#   2. use condition WHILE for checking until matched or return to start point(suffix_length = 0);
-#   3. Check example: text = "aabaabaaf", pattern = 'aabaaf' => prefix = [0,1,0,1,2,0], returns 3(matched index)
+#   1. prefix array: the longest size of prefix and suffix, where str-prefix == str-suffix
+#   2. prefix computing start from at least one prefix;
+#   3. use condition WHILE for checking until matched or return to start point(suffix_length = 0);
+#   4. Check example: text = "aabaabaaf", pattern = 'aabaaf' => prefix = [0,1,0,1,2,0], returns 3(matched index)
 def compute_prefix(pattern)
   prefix, suffix_tail = [0], 0
   (1...pattern.length).each do |prefix_tail|
