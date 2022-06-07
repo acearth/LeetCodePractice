@@ -26,3 +26,15 @@ def trap(height)
   end
   collected
 end
+
+def trap_stack(height)
+  collected, stack = 0, []
+  height.each_with_index do |h, right|
+    while stack.any? && height[stack.last] <= h
+      btm = stack.pop
+      collected += (right - stack.last - 1) * ([height[stack.last], h].min - height[btm]) if stack.any?
+    end
+    stack << right
+  end
+  collected
+end
