@@ -8,7 +8,7 @@ def preorder_traversal(root)
   stack, result = [root], []
   while cur = stack.pop
     result << cur.val
-    stack << cur.right if cur.right
+    stack << cur.right if cur.right # push right first and it will pop last
     stack << cur.left if cur.left
   end
   result
