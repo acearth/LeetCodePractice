@@ -1,8 +1,9 @@
-# Q-236: post order traversal and find it
-# NOTE for border condition
+# Q-235: of BST rather than common tree, check Q-236 for comparing.
 def lowest_common_ancestor(root, p, q)
-  return root if [p, q, nil].include? root
-  left = lowest_common_ancestor(root.left, p, q)
-  right = lowest_common_ancestor(root.right, p, q)
-  left && right ? root : left || right
+  if (root.val <=> p.val) == (root.val <=> q.val)
+    next_node = root.val > p.val ? root.left : root.right
+    lowest_common_ancestor(next_node, p, q)
+  else
+    root
+  end
 end
