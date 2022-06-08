@@ -1,15 +1,16 @@
-# for post order, we must set additional information to mark parent
-def postorder_traversal(tree)
-  result, stack = [], []
-  while stack.any? || tree
-    while tree
-      stack << tree
-      last = tree = tree.left
+# Q-145: post-order of tree, iterate way
+def postorder_traversal(root)
+  stack, result = [], []
+  while stack.any? || root
+    while root
+      stack << root
+      last = root = root.left
     end
-    if last == stack.last.right # if next node is parent
-      result << (last = stack.pop).val
+    if last == stack.last.right
+      last = stack.pop
+      result << last.val
     else
-      last = tree = stack.last.right # after visited left, we get parents from stack and set current to its right child
+      last = root = stack.last.right
     end
   end
   result
