@@ -20,8 +20,8 @@ class TreeNode
         if cur_level.any?
           tree = cur_level.shift
           left, right = arr.shift, arr.shift
-          next_level << (tree.left = TreeNode.new(left)) if left != '#'
-          next_level << (tree.right = TreeNode.new(right)) if right != '#'
+          next_level << (tree.left = TreeNode.new(left)) if left && left != '#'
+          next_level << (tree.right = TreeNode.new(right)) if right && right != '#'
         else
           cur_level, next_level = next_level, []
         end
