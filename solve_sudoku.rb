@@ -1,6 +1,4 @@
-# Q-37: solve sudoku by backtracking
-# frozen_string_literal: true
-
+# Q-37: solve sudoku: backtracking: optimized on detail
 def solve_sudoku(board)
   backtracking(board)
 end
@@ -8,9 +6,10 @@ end
 def backtracking(board)
   9.times do |i|
     9.times do |j|
-      next if board[i][j] != '.' # @note: avoid returns
-      possible(board, i, j).each do |put|
-        board[i][j] = put
+      next if board[i][j] != '.'
+      ('1'..'9').each do |k|
+        next unless valid?(board, i, j, k)
+        board[i][j] = k
         return true if backtracking(board)
         board[i][j] = '.'
       end
@@ -20,16 +19,13 @@ def backtracking(board)
   true
 end
 
-def possible(board, i, j)
-  return [] if board[i][j] != '.'
-
-  avail = ('1'..'9').to_a - board[i] - board.map { |line| line[j] }
-  zi = i / 3 * 3
-  zj = j / 3 * 3
-  (zi...zi + 3).each do |line|
-    (zj...zj + 3).each do |col|
-      avail -= [board[line][col]]
+def valid?(board, i, j, k)
+  return false if board[i].include? k
+  9.times { |i| return false if board[i][j] == k }
+  (i / 3 * 3...i / 3 * 3 + 3).each do |zi|
+    (j / 3 * 3...j / 3 * 3 + 3).each do |zj|
+      return false if board[zi][zj] == k
     end
   end
-  avail
+  true
 end
