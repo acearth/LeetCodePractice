@@ -26,10 +26,10 @@ def is_valid_sudoku(board)
       next if board[i][j] == '.'
       return false if have["seen #{board[i][j]} in line #{i}"]
       return false if have["seen #{board[i][j]} in column #{j}"]
-      return false if have["seen #{board[i][j]} in zone #{i / 3 * 3}:#{j / 3 * 3}"]
+      return false if have["seen #{board[i][j]} in zone #{i / 3}:#{j / 3}"]
       have["seen #{board[i][j]} in line #{i}"] = true
       have["seen #{board[i][j]} in column #{j}"] = true
-      have["seen #{board[i][j]} in zone #{i / 3 * 3}:#{j / 3 * 3}"] = true
+      have["seen #{board[i][j]} in zone #{i / 3 }:#{j / 3 }"] = true
     end
   end
   true
