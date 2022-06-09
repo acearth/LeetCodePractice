@@ -1,16 +1,16 @@
-# Q-145: post-order of tree, iterate way
+# Q-145: iter way
 def postorder_traversal(root)
-  stack, result = [], []
+  result, stack, pre = [], [], nil
   while stack.any? || root
     while root
       stack << root
-      last = root = root.left
+      root = root.left
     end
-    if last == stack.last.right
-      last = stack.pop
-      result << last.val
+    if pre == stack.last.right
+      pre = stack.pop
+      result << pre.val
     else
-      last = root = stack.last.right
+      pre = root = stack.last.right
     end
   end
   result
