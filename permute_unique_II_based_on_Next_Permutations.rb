@@ -1,40 +1,15 @@
-def next_permutation(nums)
-  max=nums[-1]
-  (nums.size-2).downto(0) do |cur|
-    if nums[cur]<max
-      t,nums[cur]=nums[cur],max
-      #put the one smallest but larger than nums[cur] to nums[cur]
-      (cur+1).upto(nums.size-1){|i| nums[cur]=nums[i] if nums[i]>t&&nums[i]<nums[cur] }
-      #delete the redunctant element
-      (cur+1).upto(nums.size-1){|i| (nums[i]=t;break) if nums[i]==nums[cur] }
-      #sort the rest array by bubble sort
-      (nums.size-2).downto(cur+1) do |j|
-        (cur+1).upto(j) do |i|
-          nums[i],nums[i+1]=nums[i+1],nums[i] if nums[i]>nums[i+1]
-        end
-      end
-      return
-    else
-      max=nums[cur]
-    end
-  end
-  0.upto(-1+nums.size/2){|i| nums[i],nums[nums.size-i-1]=nums[nums.size-i-1],nums[i]}
-  return
-end
+# Q-47: permute remove dup by backtracking [dup-remove skill need review]
 def permute_unique(nums)
-  arr=nums.sort
-  arr
-  result=[]
-  termination=arr.reverse
-  result<<arr.dup
-  while arr!=termination
-    next_permutation(arr)
-    result<<arr.dup
-  end
+  backtracking(nums.sort, [], [false] * nums.size, result = [])
   result
 end
-a=[1,2,3]
-p permute_unique(a)
-a=[1,1,2]
-p permute_unique(a)
 
+def backtracking(nums, got, visited, result)
+  return result << [] + got if nums.size == got.size
+  nums.each_with_index do |n, i|
+    next if (i > 0 && n == nums[i - 1]) && visited[i - 1] || visited[i]
+    visited[i] = true
+    backtracking(nums, got + [n], visited, result)
+    visited[i] = false
+  end
+end
