@@ -1,23 +1,16 @@
+# Q-39: output without unique and sort
 def combination_sum(candidates, target)
-  search(0, [], target, candidates)
+  result = []
+  backtracking(candidates, 0, [], target, result)
+  result
 end
 
-def search(cur_sum, cur_combination, target, candidates)
-  if cur_sum > target
-    []
-  elsif cur_sum == target
-    [cur_combination.sort]
-  else
-    candidates.flat_map do |cur|
-      search(cur_sum + cur, [cur] + cur_combination, target, candidates)
-    end.select(&:any?).uniq
+# NOTE: the start is accessible again
+def backtracking(candidates, start, collected, target, result)
+  return (result << [] + collected if target == 0) if target <= 0
+  (start...candidates.size).each do |i|
+    collected << candidates[i]
+    backtracking(candidates, i, collected, target - candidates[i], result)
+    collected.pop
   end
 end
-
-# ar = 2, 3, 6, 7
-# p combination_sum ar, 7
-# ar = [8, 7, 4, 3]
-# p combination_sum ar, 11
-#
-# ar = [2, 3, 5]
-# p combination_sum(ar, 8)
