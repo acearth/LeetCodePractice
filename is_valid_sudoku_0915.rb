@@ -1,27 +1,36 @@
-def is_valid_sudoku(board)
-  9.times do |i| 
-    return false if not check_line(board[i]) 
-    return false if not check_column(board,i)
-    return false if not check_block(board,i)
+# Q-36: validate a incomplete-able sudoku
+def is_valid_sudoku_raw(board)
+  9.times do |i|
+    return false unless valid? board[i]
+    return false unless valid? board.map { |line| line[i] }
+  end
+  3.times do |i|
+    3.times do |j|
+      zone = (i * 3...i * 3 + 3).map { |zi| board[zi][j * 3...j * 3 + 3] }.reduce(:+).sort
+      return false unless valid? zone
+    end
   end
   true
 end
 
-def check_block(board, i)
-  loc_i, loc_j = (i/3)*3, (i%3)*3
-  str=""
-  3.times{|i| 3.times {|j| str+=board[loc_i+i][loc_j+j]}}
-  check_line(str)
+def valid?(tuple)
+  pure = tuple - ['.']
+  pure.size == pure.uniq.size
 end
 
-def check_column(board,column)
-  str=""
-  9.times{|i|str+=board[i][column]}
-  check_line(str)
-end
-
-def check_line(str)
-  h=Hash.new{|h,k| h[k]=0}
-  9.times {|i| return false if h[str[i]]>0; h[str[i]]+=1 if str[i]!='.'}
+# from @StefanPochmann
+def is_valid_sudoku(board)
+  have = {}
+  9.times do |i|
+    9.times do |j|
+      next if board[i][j] == '.'
+      return false if have["seen #{board[i][j]} in line #{i}"]
+      return false if have["seen #{board[i][j]} in column #{j}"]
+      return false if have["seen #{board[i][j]} in zone #{i / 3 * 3}:#{j / 3 * 3}"]
+      have["seen #{board[i][j]} in line #{i}"] = true
+      have["seen #{board[i][j]} in column #{j}"] = true
+      have["seen #{board[i][j]} in zone #{i / 3 * 3}:#{j / 3 * 3}"] = true
+    end
+  end
   true
 end
