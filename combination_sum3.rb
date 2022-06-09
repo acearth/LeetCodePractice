@@ -1,19 +1,15 @@
-# comb sum 3: backtracking
-# @param {Integer} k
-# @param {Integer} n
-# @return {Integer[][]}
+# Q-216: comb sum 3: backtracking
 def combination_sum3(k, n)
-  search(0,[],(1..9).to_a,k,n)
+  result = []
+  backtracking(1, n, [], k, result)
+  result
 end
 
-def search(cur_sum,cur_combination, candidates, k,target)
-  if  k < 0 || cur_sum > target
-    []
-  elsif k == 0
-    cur_sum == target ? [cur_combination.sort] : []
-  else
-    candidates.flat_map do |cur|
-      search(cur_sum + cur, [cur]+ cur_combination, candidates - [cur],k-1, target)
-    end.uniq
+def backtracking(start, n, sums, remain, result)
+  return (result << [] + sums if sums.sum == n) if remain == 0
+  (start..9 - remain + 1).each do |i|
+    sums << i
+    backtracking(i + 1, n, sums, remain - 1, result)
+    sums.pop
   end
 end
