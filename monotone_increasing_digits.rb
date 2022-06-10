@@ -15,3 +15,17 @@ def monotone_increasing_digits(n)
   end
   digits.join.to_i
 end
+
+# Greeding, better!
+def monotone_increasing_digits(n)
+  digits = n.to_s.chars.map(&:to_i)
+  start = digits.size
+  (digits.size - 1).downto(1) do |i|
+    if digits[i - 1] > digits[i]
+      digits[i - 1] -= 1
+      start = i
+    end
+  end
+  (start...digits.size).each { |i| digits[i] = 9 }
+  digits.join.to_i
+end
