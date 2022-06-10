@@ -1,6 +1,12 @@
-# max profit transaction once
+# Q-121: constraint: buy and sell ONLY once!
 def max_profit(prices)
-  buy, profit = 2**32, 0
-  prices.each { |sell| buy > sell ? buy = sell : profit = [profit, sell - buy].max }
+  profit, buy = 0, prices[0]
+  (1...prices.size).each do |i|
+    if prices[i] > buy
+      profit = [prices[i] - buy, profit].max
+    else
+      buy = prices[i]
+    end
+  end
   profit
 end
