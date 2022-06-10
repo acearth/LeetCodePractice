@@ -1,15 +1,10 @@
+# Q55: can jump? check for each step coverage
 def can_jump(nums)
-  return nums.size>0 if nums.size<2
-  max=0
-  nums[0..-2].each_with_index do |n, i| 
-    max=n+i if max<n+i
-    return false if max<=i
-    return true if max+1>=nums.size
+  max = 0
+  (nums.size - 1).times do |i|
+    max = [max, nums[i] + i].max
+    return true if max >= nums.size - 1
+    return false if max <= i
   end
+  true
 end
-a=[2,3,1,1,4]
-p can_jump(a)==true
-a=[3,2,1,0,4]
-p can_jump(a)==false
-a=[0,2,3]
-p can_jump(a)==false
