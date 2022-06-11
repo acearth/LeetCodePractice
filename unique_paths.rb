@@ -1,7 +1,12 @@
+# Q-62: unique path: raw DP
 def unique_paths(m, n)
-  state=[1] * n
-  (m-1).times do |i|
-    1.upto(n-1){|j| state[j]+=state[j-1] }
+  methods = m.times.map { |_| [0] * n }
+  m.times { |i| methods[i][0] = 1 }
+  n.times { |i| methods[0][i] = 1 }
+  (1...m).each do |i|
+    (1...n).each do |j|
+      methods[i][j] = methods[i - 1][j] + methods[i][j - 1]
+    end
   end
-  state[-1]
+  methods[-1][-1]
 end
