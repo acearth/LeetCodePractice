@@ -1,21 +1,15 @@
-class Interval
-  attr_accessor :start, :end
-  def initialize(s=0, e=0)
-    @start = s
-    @end = e
-  end
-end
+# Q-56 Merge intervals
 
 def merge(intervals)
-  return [] if intervals.empty?
-  intervals.sort_by! { |i| i.start }
-  reduced = [intervals[0]]
-  1.upto(intervals.size - 1) do |i|
-    if intervals[i].start <= reduced[-1].end
-      reduced[-1].end = [intervals[i].end, reduced[-1].end].max
+  intervals.sort_by!(&:first)
+  result = [intervals.first]
+  intervals.each do |interval|
+    if result.last.last >= interval.first
+      cur = result.last
     else
-      reduced << intervals[i]
+      result << cur = interval
     end
+    cur[-1] = [cur.last, interval.last].max
   end
-  reduced
+  result
 end
