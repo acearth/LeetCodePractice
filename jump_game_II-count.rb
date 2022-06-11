@@ -1,4 +1,18 @@
-# bfs
+# Q-45: Jump game II
+# in greeding easy but good solution
+def jump(nums)
+  reach = next_reach = jump = 0
+  nums.size.times do |i|
+    next_reach = [next_reach, i + nums[i]].max
+    next unless i == reach
+    break if reach >= nums.size - 1
+    jump += 1
+    reach = next_reach
+  end
+  jump
+end
+
+# bfs(in 2015) method is TLE now(2022)
 def jump(nums)
   dest = nums.size - 1
   visited, q = [], []
@@ -26,7 +40,7 @@ p jump(a)
 
 #greedy method needs to learn .
 
-# Q-45: Jump game II.  Not good enough. Greeding
+# Q-45: Jump game II.  Not good enough. Greeding:q
 # Need to use new loop method
 def jump(nums)
   jumped = curr = 0
