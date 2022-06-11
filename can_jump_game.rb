@@ -8,3 +8,13 @@ def can_jump(nums)
   end
   true
 end
+
+# Q-55: jump game: care about further, don't care how we get to current position
+def can_jump(nums)
+  reach = 0
+  nums.each_with_index do |step, i|
+    return false if reach < i
+    reach = [reach, step + i].max
+  end
+  true
+end
