@@ -1,3 +1,4 @@
+# Q-139: work break: complete pack DP
 def word_break(s, word_dict)
   dp = [true] + [false] * s.size
   (1..s.size).each do |i|
@@ -8,6 +9,3 @@ def word_break(s, word_dict)
   end
   dp[s.size]
 end
-
-p word_break('leetcode', ['leet', 'code'])
-p word_break('applepenapple', ['apple', 'pen'])
