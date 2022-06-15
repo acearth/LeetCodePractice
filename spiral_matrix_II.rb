@@ -67,3 +67,19 @@ def generate_matrix_heuristic(n)
   end
   matrix
 end
+
+def generate_matrix_reduced(n)
+  m, state = n.times.map { [0] * n }, -1
+  i, j, k = 0, 0, 1
+  move = [[0, 1], [1, 0], [0, -1], [-1, 0]]
+  adjust = [[1, -1], [-1, -1], [-1, 1], [1, 1]]
+  while k <= n * n
+    state = (state + 1) % 4
+    while m[i] && m[i][j] == 0
+      m[i][j] = k
+      i, j, k = i + move[state][0], j + move[state][1], k + 1
+    end
+    i, j = i + adjust[state][0], j + adjust[state][1]
+  end
+  m
+end
