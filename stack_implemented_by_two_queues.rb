@@ -1,25 +1,27 @@
-# Q-225: stack implemented by queues
-# NOTE: @out queue is ancillary
 class MyStack
   def initialize()
-    @in, @out = [], []
+    @q, @top = [], nil
   end
 
   def push(x)
-    @in << x
+    @q << x
+    @top = x
   end
 
+  # @note: we cannot use last method of enumerable according to question constraints.
   def pop()
-    @in, @out = @out, @in if @in.empty?
-    @out << @in.shift while @in.size > 1
-    @in.shift
+    aux = []
+    (aux << @top = @q.shift) while @q.size > 1
+    got = @q.shift
+    @q = aux
+    got
   end
 
   def top()
-    @in.last || @out.last
+    @top
   end
 
   def empty()
-    @in.empty? && @out.empty?
+    @q.empty?
   end
 end
