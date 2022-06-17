@@ -1,68 +1,47 @@
-# Q-450: delete one node in BST
-# ITER-way: need to be improved! TODO-improve
-def delete_node_iter(root, key)
-  return unless root
-  parent = tree = root
-  while tree
-    break if tree.val == key
-    parent = tree
-    tree = (tree.val > key ? tree.left : tree.right)
-  end
-  return root unless tree
-  if tree == root
-    if tree.left == nil
-      return tree.right
-    elsif tree.right == nil
-      return tree.left
-    else
-      cur = tree.right
-      cur = cur.left while cur.left
-      cur.left = tree.left
-      return tree.right
-    end
-  elsif !tree.left && !tree.right
-    reset(parent, tree, nil)
-  elsif !tree.left && tree.right
-    reset(parent, tree, tree.right)
-  elsif !tree.right && tree.left
-    reset(parent, tree, tree.left)
-  else
-    cur = tree.right
-    cur = cur.left while cur.left
-    cur.left = tree.left
-    reset(parent, tree, tree.right)
-  end
+# Q-450
+def remove(tree)
+  return unless tree
+  return tree.left if !tree.right
+  return tree.right if !tree.left
+  root = tree.right
+  p = tree.left
+  p = p.right while p && p.right
+  p.right = root.left
+  root.left = tree.left
   root
 end
 
-#TODO-remove: old' children
-def reset(parent, old, neo)
-  if parent.left == old
-    parent.left = neo
+def delete_node_recursive(tree, val)
+  return unless tree
+  if tree.val == val
+    return remove(tree)
+  elsif tree.val > val
+    tree.left = delete_node(tree.left, val)
   else
-    parent.right = neo
+    tree.right = delete_node(tree.right, val)
   end
-  old.left = old.right = nil
+  tree
 end
 
-# NOTE: returned value is useful, maintain it
-def delete_node(tree, key)
+def delete_node_iterate(tree, val)
   return unless tree
-  if tree.val == key
-    if tree.left == nil
-      return tree.right
-    elsif tree.right == nil
-      return tree.left
+  return remove(tree) if tree.val == val
+  pre = p = tree
+  while p
+    if p.val == val
+      if pre.left == p
+        pre.left = remove(p)
+      else
+        pre.right = remove(p)
+      end
+      break
+    elsif p.val > val
+      pre = p
+      p = p.left
     else
-      cur = tree.right
-      cur = cur.left while cur.left
-      cur.left = tree.left
-      return tree.right
+      pre = p
+      p = p.right
     end
-  elsif tree.val > key
-    tree.left = delete_node(tree.left, key)
-  else
-    tree.right = delete_node(tree.right, key)
   end
   tree
 end

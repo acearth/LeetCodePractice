@@ -56,6 +56,9 @@ class TreeNode
     puts @val
     right.in_order if right
   end
+  def inorder
+    in_order
+  end
 
   def post_order
     left.post_order if left
