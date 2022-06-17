@@ -36,11 +36,13 @@ class TreeNode
   end
 
   def to_s
-    ": #{@val}"
+    # ": #{@val}"
+    @val
   end
 
   def to_inspect
-    ": #{@val}"
+    @val
+    # ": #{@val}"
   end
 
   def pre_order
