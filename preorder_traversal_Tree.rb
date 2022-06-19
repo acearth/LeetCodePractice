@@ -13,3 +13,20 @@ def preorder_traversal(root)
   end
   result
 end
+
+def morris_pre_order(tree)
+  result = []
+  while tree
+    result << tree.val
+    if tree.left
+      r = tree.right
+      p = tree.left
+      p = p.right while p && p.right
+      p.right = r
+    else
+      tree.left = tree.right
+    end
+    tree = tree.left
+  end
+  result
+end
