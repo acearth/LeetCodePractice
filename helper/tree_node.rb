@@ -15,24 +15,28 @@ class TreeNode
   class << self
     def generate(arr)
       return if arr.empty?
-      cur_level, next_level = [], [root = TreeNode.new(arr.shift)]
+      cur_level = []
+      next_level = [root = TreeNode.new(arr.shift)]
       while arr.any?
         if cur_level.any?
           tree = cur_level.shift
-          left, right = arr.shift, arr.shift
+          left = arr.shift
+          right = arr.shift
           next_level << (tree.left = TreeNode.new(left)) if left && left != '#'
           next_level << (tree.right = TreeNode.new(right)) if right && right != '#'
         else
-          cur_level, next_level = next_level, []
+          cur_level = next_level
+          next_level = []
         end
       end
       root
     end
   end
 
-  def initialize(value)
+  def initialize(value, left = nil, right = nil)
     @val = value
-    @left, @right = nil, nil
+    @left = left
+    @right = right
   end
 
   def to_s
@@ -56,6 +60,7 @@ class TreeNode
     puts @val
     right.in_order if right
   end
+
   def inorder
     in_order
   end
