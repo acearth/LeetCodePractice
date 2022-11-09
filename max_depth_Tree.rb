@@ -1,14 +1,15 @@
-def max_depth_recursive(tree)
-  return 0 if not tree
-  [max_depth(tree.left), max_depth(tree.right)].max + 1
+# Q-104
+def max_depth(root)
+    return 0 unless root
+    [max_depth(root.left), max_depth(root.right)].max + 1
 end
 
 def max_depth(root)
-  depth = 0
-  q = [root]
-  while q.any?
-    depth += 1
-    q.map! { |node| [node.left, node.right].compact }.flatten!
-  end
-  depth
+    result = 0
+    q = [root]
+    while q.any?
+        q=q.map{|t|[t.left,t.right].compact}.flatten
+        result +=1
+    end
+    result
 end
