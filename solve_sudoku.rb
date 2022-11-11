@@ -1,30 +1,30 @@
-# Q-37: solve sudoku: backtracking: optimized on detail
+# Q-37: solve sodoku by better backtracking
 def solve_sudoku(board)
-  backtracking(board)
+  backtrack(board, 0)
 end
 
-def backtracking(board)
-  9.times do |i|
-    9.times do |j|
-      next if board[i][j] != '.'
-      ('1'..'9').each do |k|
-        next unless valid?(board, i, j, k)
-        board[i][j] = k
-        return true if backtracking(board)
-        board[i][j] = '.'
-      end
-      return false
+def backtrack(board, seq)
+  return true if seq == 81
+  i, j = seq / 9, seq % 9
+  return backtrack(board, seq + 1) if board[i][j] != '.'
+  ('1'..'9').each do |ch|
+    if available?(board, i, j, ch)
+      board[i][j] = ch
+      return true if backtrack(board, seq + 1)
+      board[i][j] = '.'
     end
   end
-  true
+  false
 end
 
-def valid?(board, i, j, k)
-  return false if board[i].include? k
-  9.times { |i| return false if board[i][j] == k }
-  (i / 3 * 3...i / 3 * 3 + 3).each do |zi|
-    (j / 3 * 3...j / 3 * 3 + 3).each do |zj|
-      return false if board[zi][zj] == k
+def available?(board, i, j, c)
+  return false if board[i].include?(c)
+  return false if 9.times.map { |k| board[k][j] }.include?(c)
+  3.times do |zi|
+    3.times do |zj|
+      cur_i = (i / 3) * 3 + zi
+      cur_j = (j / 3) * 3 + zj
+      return false if board[cur_i][cur_j] == c
     end
   end
   true
