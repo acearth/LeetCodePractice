@@ -1,4 +1,4 @@
-# q-54:  spiral order : multi-solutions
+# Q-54:  spiral order : multi-solutions
 # @param {Integer[][]} matrix
 # @return {Integer[]}
 # created on 3/june/2022
@@ -46,4 +46,28 @@ def spiral_order_recursively(matrix)
     result << matrix[i].pop
   end
   result + matrix.pop.reverse + stack.reverse + spiral_order(matrix)
+end
+
+
+# @param {Integer[][]} matrix
+# @return {Integer[]}
+def spiral_order(matrix)
+  result = []
+  moves = [[0, 1], [1, 0], [0, -1], [-1, 0]]
+  cur = 0
+  m, n = matrix.size, matrix.first.size
+  adjust = [[1, -1], [-1, -1], [-1, 1], [1, 1]]
+  di, dj = moves[0]
+  i = j = 0
+  while result.size < m * n
+    if i < 0 || j < 0 || i >= m || j >= n || matrix[i][j] == 2**32
+      i, j = i + adjust[cur][0], j + adjust[cur][1]
+      cur = (cur + 1) % 4
+      di, dj = moves[cur]
+    end
+    result << matrix[i][j]
+    matrix[i][j] = 2**32
+    i, j = i + di, j + dj
+  end
+  result
 end
