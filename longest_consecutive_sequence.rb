@@ -1,19 +1,20 @@
+# Q-128
 def longest_consecutive(nums)
-  have=nums.map { |n| [n, true] }.to_h
-  max_len=0
-  have.each do |k, v|
-    next if not v
-    count=1
-    upper, lower=k+1, k-1
-    while have[upper]
-      have[upper]=false
-      upper, count=upper+1, count+1
+  hash = nums.to_h { |i| [i, true] }
+  longest = 0
+  nums.each do |n|
+    next unless hash[n]
+    hash[n] = false
+    count = 1
+    [-1, 1].each do |i|
+      k = n + i
+      while hash[k]
+        hash[k] = false
+        count += 1
+        k += i
+      end
     end
-    while have[lower]
-      have[lower]=false
-      lower, count=lower-1, count+1
-    end
-    max_len=count if count>max_len
+    longest = count if longest < count
   end
-  max_len
+  longest
 end
