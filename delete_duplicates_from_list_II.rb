@@ -1,12 +1,12 @@
 # Q-82: funny
 def delete_duplicates(head)
   return head if head==nil ||head.next==nil
-  if head.value !=head.next.value
+  if head.val !=head.next.val
     head.next=delete_duplicates(head.next)
     head
   else
-    cur=head.value
-    head=head.next while head!=nil && head.value==cur
+    cur=head.val
+    head=head.next while head!=nil && head.val==cur
     delete_duplicates(head)
   end
 end
