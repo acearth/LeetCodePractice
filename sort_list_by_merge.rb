@@ -45,3 +45,64 @@ def sort_list(head)
   end
   sorted.next
 end
+
+
+
+# Q-148: exercise at 14/nov/2022
+#  Still need to improve by fast and slow pointers
+#
+# Definition for singly-linked list.
+# class ListNode
+#     attr_accessor :val, :next
+#     def initialize(val = 0, _next = nil)
+#         @val = val
+#         @next = _next
+#     end
+# end
+# @param {ListNode} head
+# @return {ListNode}
+def sort_list(head)
+  dummy = ListNode.new(-1 * 2 ** 32, head)
+  pre = p = dummy
+  intv = 1
+  need = true
+  while need
+    pass = 0
+    while p
+      first = p
+      tail = nil
+      intv.times { tail = p; break unless p; p = p.next }
+      need = false if pass == 0 && !tail.next
+      break unless tail.next
+      pass += 1
+      sorted, tail, remained = merge(first, tail, intv)
+      pre.next = sorted
+      pre = tail
+      p = remained
+    end
+    intv *= 2
+  end
+end
+
+def merge(list, another, size)
+  tail = head = list.val >= another.val ? another.val : list
+  if head == another
+    another = another.next
+    size -= 1
+  else
+    list = list.next
+  end
+  while list || another && size > 0
+    if list && list.val <= another.val
+      tail.next = list
+      list = list.next
+    else
+      tail.next = another
+      another = another.next
+      size -= 1
+    end
+    tail = tail.next
+  end
+  tail.next = nil
+  [head, tail, another]
+end
