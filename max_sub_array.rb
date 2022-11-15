@@ -54,3 +54,46 @@ end
 
 # Way 5: primitive dp method
 
+
+
+# way 3: ALGO-book
+def max_sub_array_divide_conquer(nums)
+    divide_max(nums,0,nums.size - 1)
+end
+
+def cross_max(nums, low, mid, high)
+    left_max=right_max=-1*2**32
+    sum=0
+    left=right=mid
+    mid.downto(low) do |i|
+        sum+=nums[i]
+        next if sum < left_max
+        left_max = sum
+        left=i
+    end
+    sum=0
+    (mid+1..high).each do |i|
+        sum+=nums[i]
+        next if sum < right_max
+        right_max=sum
+        right=i
+    end
+    left_max+right_max
+end
+
+
+def divide_max(nums, low, high)
+    return nums[low] if low==high
+    mid = (low+high)/2
+lmax=divide_max(nums,low, mid)
+rmax=divide_max(nums,mid+1,high)
+cmax=cross_max(nums,low,mid,high)
+    if lmax >= rmax && lmax>=cmax
+        lmax
+    elsif rmax>= lmax && rmax >=cmax
+        rmax
+    else
+        cmax
+    end
+end
+    
