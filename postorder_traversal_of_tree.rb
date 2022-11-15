@@ -1,16 +1,15 @@
 # Q-145: iter way
 def postorder_traversal(root)
-  result, stack, pre = [], [], nil
+  pre, stack, result = nil, [], []
   while stack.any? || root
-    while root
+    if root
       stack << root
       root = root.left
-    end
-    if pre == stack.last.right
-      pre = stack.pop
-      result << pre.val
-    else
+    elsif pre != stack.last.right
       pre = root = stack.last.right
+    else
+      result << stack.last.val
+      pre = stack.pop
     end
   end
   result
