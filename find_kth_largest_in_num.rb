@@ -1,20 +1,51 @@
-# Returns larger part size
-def partition(arr, p, r, s = p - 1)
-  p.upto(r - 2) do |i|
-    next if arr[i] < arr[r - 1]
-    s += 1
-    arr[s], arr[i] = arr[i], arr[s]
+# Q-215: quick select for kth largest
+# NOTE: partition method changed on comparison
+def find_kth_largest(nums, k)
+  left, right = 0, nums.size - 1
+  while (q = partition(nums, left, right)) != k - 1
+    if q > k - 1
+      right = q - 1
+    else
+      left = q + 1
+    end
   end
-  arr[r - 1], arr[s + 1] = arr[s + 1], arr[r - 1]
-  s + 2
+  nums[q]
 end
 
-def find_kth_largest(num, k)
-  p = 0
-  r = num.size
-  loop do
-    q = partition(num, p, r)
-    return num[q - 1] if k == q
-    q > k ? r = q - 1 : p = q
+def partition(nums, left, right)
+  x = rand(right - left) + left
+  nums[x], nums[right] = nums[right], nums[x]
+  i = left - 1
+  (left...right).each do |j|
+    next if nums[j] < nums[right]
+    i += 1
+    nums[i], nums[j] = nums[j], nums[i]
   end
+  nums[i + 1], nums[right] = nums[right], nums[i + 1]
+  i + 1
+end
+
+p find_kth_largest([3, 2, 1, 5, 6, 4], 2) == 5
+
+def max_heapify(arr, i, size)
+  l = i * 2 + 1
+  r = i * 2 + 2
+  larger = i
+  larger = l if l < size && arr[l] > arr[larger]
+  larger = r if r < size && arr[r] > arr[larger]
+  return if larger == i
+  arr[i], arr[larger] = arr[larger], arr[i]
+  max_heapify(arr, larger, size)
+end
+
+def find_kth_largest_heap_sort(nums, k)
+  (nums.size / 2).downto(0) do |i|
+    max_heapify(nums, i, nums.size)
+  end
+  k.times do |i|
+    n = nums.size - 1 - i
+    nums[0], nums[n] = nums[n], nums[0]
+    max_heapify(nums, 0, n)
+  end
+  nums[nums.size - k]
 end
