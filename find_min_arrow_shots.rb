@@ -1,13 +1,18 @@
 # Q-452 EASY greeding
+# @param {Integer[][]} points
+# @return {Integer}
 def find_min_arrow_shots(points)
-  points.sort_by!(&:first)
-  arrow, count = points.first, 1
-  points.each do |p|
-    if arrow.first <= p.first && arrow.last >= p.first
-      arrow = [[arrow.first, p.first].max, [arrow.last, p.last].min]
+  arrows = 1
+  points = points.sort_by(&:first)
+  range = points.shift
+  points.each do |start, ending|
+    if range.last >= start
+      range[0] = [range[0], start].max
+      range[1] = [range[1], ending].min
     else
-      arrow, count = p, count + 1
+      arrows += 1
+      range = [start, ending]
     end
   end
-  count
+  arrows
 end
