@@ -1,10 +1,26 @@
-# Need to analyze different situations when have cut point
+# Q-154: binary search
+# @param {Integer[]} nums
+# @return {Integer}
 def find_min(nums)
-  return nums[0] if nums.size==1
-  return nums[0]>nums[1] ? nums[1] : nums[0] if nums.size==2
-  m=nums.size/2
-  return find_min(nums[0..m]) if nums[0]<nums[-1]
-  m1=find_min(nums[0..m])
-  m2=find_min(nums[m..-1])
-  m1>m2 ? m2 : m1
+  min(nums, 0, nums.size - 1)
+end
+
+def min(nums, left, right)
+  return nums[left..right].min if right - left < 2
+  m = (left + right) / 2
+  if nums[left] < nums[m]
+    if nums[m] <= nums[right]
+      nums[left]
+    else
+      min(nums, m + 1, right)
+    end
+  elsif nums[left] > nums[m]
+    min(nums, left + 1, m)
+  else
+    if nums[m] == nums[right]
+      [min(nums, left, m - 1), min(nums, m + 1, right)].min
+    else
+      min(nums, m, right)
+    end
+  end
 end
