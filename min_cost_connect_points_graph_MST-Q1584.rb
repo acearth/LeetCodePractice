@@ -50,3 +50,34 @@ end
 p min_cost_connect_points([[3, 12], [-2, 5], [-4, 1]])
 p min_cost_connect_points([[0, 0], [2, 2], [3, 10], [5, 2], [7, 0]])
 
+# Prim implementation with aux array
+# @param {Integer[][]} points
+# @return {Integer}
+def min_cost_connect_points(points)
+  size = points.size
+  have = {}
+  min_distance = [2 ** 32] * size
+  min_distance[0] = 0
+  cost, used = 0, 0
+  while used < size
+    cur, distance = -1, 2 ** 32
+    size.times do |i|
+      next if have[i] || distance <= min_distance[i]
+      cur = i
+      distance = min_distance[i]
+    end
+    have[cur] = true
+    cost += distance
+    used += 1
+    size.times do |i|
+      next if have[i]
+      min_distance[i] = [min_distance[i], mht(points[cur], points[i])].min
+    end
+  end
+  cost
+end
+
+def mht(a, b)
+  (a[0] - b[0]).abs + (a[1] - b[1]).abs
+end
+
