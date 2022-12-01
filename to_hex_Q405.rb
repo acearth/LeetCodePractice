@@ -1,20 +1,15 @@
-# Q-405
+# Q-405: to hex number: bit ops
+# updated 01/dec/2022
+# NOTE: return 2**32 + num for negative result for complement representation
 # @param {Integer} num
 # @return {String}
 def to_hex(num)
-  return "0" if num == 0
-  key = Hash.new { |h, k| h[k] = k }
-  (10...16).each { |i| key[i] = ('a'.ord + i - 10).chr }
-  negative = num < 0
-  num += 2 ** 31 if num < 0
-  result = []
+  return to_hex(2 ** 32 + num) if num < 0
+  result = num == 0 ? [0] : []
+  digit = Hash.new { |h, k| h[k] = k }.merge({ 10 => :a, 11 => :b, 12 => :c, 13 => :d, 14 => :e, 15 => :f })
   while num > 0
-    result << num % 16
-    num = num >> 4
+    result << digit[num % 16]
+    num /= 16
   end
-  if negative
-    result += [0] * (8 - result.size)
-    result[-1] = (8 + result[-1]) % 16 if negative
-  end
-  result.map { |i| key[i] }.reverse.join
+  result.join.reverse
 end
