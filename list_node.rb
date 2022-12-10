@@ -16,7 +16,7 @@ class ListNode
     end
   end
 
-  def initialize(value, next_node = nil)
+  def initialize(value = 0, next_node = nil)
     @val = value
     @next = next_node
   end
