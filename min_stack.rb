@@ -1,26 +1,26 @@
+# Q-155: min stack: EASY
+# thinking about how to update min value is enough
 class MinStack
-  def initialize
-    @diff_stack = []
+  def initialize()
+    @stack = []
+    @mins = []
   end
 
-  def push(x)
-    @min = x if @diff_stack.empty?
-    @diff_stack << x - @min
-    @min = x if @diff_stack.last < 0
+  def push(val)
+    @stack << val
+    @mins << val if @mins.empty? || @mins.any? && @mins.last >= val
   end
 
-  def pop
-    v = @diff_stack.pop
-    @min -= v if v && v < 0
+  def pop()
+    v = @stack.pop
+    @mins.pop if @mins.last == v
   end
 
-  def top
-    return if @diff_stack.empty?
-    @diff_stack.last < 0 ? @min : @min + @diff_stack.last
+  def top()
+    @stack.last
   end
 
-  def get_min
-    return if @diff_stack.empty?
-    @diff_stack.last < 0 ? top : @min
+  def get_min()
+    @mins.last
   end
 end
