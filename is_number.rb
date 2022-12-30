@@ -43,3 +43,36 @@ def is_number(str)
   end
   check(inputs, 0)
 end
+
+def is_number(s)
+  s = s.gsub('e', 'E')
+  if s.count('E') == 0
+    return integer?(s) || decimal?(s)
+  elsif s.count('E') == 1
+    return false if s[0] == 'E' || s[-1] == 'E'
+    parts = s.split('E')
+    return false unless integer?(parts[1])
+    integer?(parts[0]) || decimal?(parts[0])
+  else
+    false
+  end
+end
+
+def integer?(s)
+  s = s[1..-1] if s[0] == '+' || s[0] == '-'
+  return false if s.include?('+') || s.include?('-')
+  (s =~ /^(\d+)$/) == 0
+end
+
+def decimal?(s)
+  s = s[1..-1] if s[0] == '-' || s[0] == '+'
+  return false unless s.count('.') == 1
+  parts = s.split('.')
+  return false unless (parts[0] =~ /^(\d+)$/) == 0 if parts[0] != ''
+  return false unless (parts[1] =~ /^(\d+)$/) == 0 if parts[1] && parts[1] != ''
+  true
+end
+
+p is_number("005047e+6")
+p is_number('+.8')
+p is_number('0e') == false
