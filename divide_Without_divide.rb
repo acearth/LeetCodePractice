@@ -1,18 +1,18 @@
-def divide(divident, divisor)
-  res=go_divide(~divident+1, ~divisor+1) if divident<0 && divisor < 0
-  res=(~go_divide(divident, ~divisor+1)) + 1 if divident>=0 && divisor<0
-  res=(~go_divide(~divident+1, divisor)) + 1 if divident<0 && divisor>0
-  res=go_divide(divident, divisor) if divident>=0 && divisor>0
-  (-2147483648..2147483647).include?(res) ? res : 2147483647
+# Q-29: divide without divide
+# 2015 -> 31/dec/2022
+def divide(dividend, divisor)
+  result = div(dividend.abs, divisor.abs)
+  result = -result unless divisor > 0 && dividend >= 0 || divisor < 0 && dividend <= 0
+  result > (2 ** 31 - 1) ? 2 ** 31 - 1 : result
 end
 
-def go_divide(divident, divisor)
-  return 0 if divident < divisor
-  return divident if divisor==1
-  res, cur=1, divisor
-  while cur+cur < divident
-    res=res<<1
-    cur=cur<<1
+def div(divdend, divisor)
+  return 0 if divdend < divisor
+  power = 1
+  d = divisor
+  while divdend >= d + d
+    d += d
+    power += power
   end
-  res + divide(divident - cur, divisor)
+  power + div(divdend - d, divisor)
 end
