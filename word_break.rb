@@ -1,11 +1,14 @@
-# Q-139: work break: complete pack DP
+# Q-139: word break: complete-pack DP
+# Created at: june/2022
+# updated at: 1/jan/2023
 def word_break(s, word_dict)
   dp = [true] + [false] * s.size
-  (1..s.size).each do |i|
-    0.upto(i) do |j|
-      next if !word_dict.include? s[j...i]
-      dp[i] = dp[j]
+  s.size.times do |i|
+    word_dict.each do |word|
+      start = i + 1 - word.size
+      # @note: update dp[i+1] only when it's false
+      dp[i + 1] ||= start >= 0 && dp[start] && s[start..i] == word
     end
   end
-  dp[s.size]
+  dp.last
 end
