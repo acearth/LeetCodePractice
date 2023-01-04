@@ -1,5 +1,5 @@
 # Q-269: topological sort
-#
+# created at: 22/nov/2022
 # @param {String[]} words
 # @return {String}
 def alien_order(words)
